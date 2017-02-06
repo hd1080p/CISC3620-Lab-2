@@ -29,7 +29,7 @@ const GLchar* fragmentShaderSource =
 "}\0";
 
 GLfloat vertices[] = {
-  -2.5f,  -0.5f,  0.0f,
+  -0.5f,  -0.5f,  0.0f,
   0.5f,  -0.5f,  0.0f,
   0.0f,   0.5f,  0.0f
 };
@@ -57,7 +57,9 @@ int main(int argc, char * argv[]) {
   gladLoadGL();
   fprintf(stderr, "OpenGL %s\n", glGetString(GL_VERSION));
   
-  // vertex array object tells GPU how the data in the buffer is laid out
+  // vertex array object stores vertex attribute information
+  // stores subsequent calls to glVertexAttribPointer, glEnableVertexAttribArray, vbos associated
+  // with vertex attributes
   GLuint VAO;
   glGenVertexArrays(1, &VAO);
   glBindVertexArray(VAO);
@@ -69,9 +71,12 @@ int main(int argc, char * argv[]) {
   
   // this is the first (0th) vertex attribute, has 3 components, is of type GL_FLOAT, should
   // not be normalized, each one is 3 floats apart, start at beginning of buffer (offset is 0)
+  // this vertex attribute takes its data from the VBO currently bound to GL_ARRAY_BUFFER
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
   glEnableVertexAttribArray(0);
   
+  // unbind GL_ARRAY_BUFFER and vertex array -- state has been applied
+  // unbind OpenGL objects when finished configuring them so don't mess them up
   glBindBuffer(GL_ARRAY_BUFFER, 0); 
   glBindVertexArray(0);
   
@@ -105,9 +110,9 @@ int main(int argc, char * argv[]) {
     
     // Draw our first triangle
     glUseProgram(shaderProgram);
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    glBindVertexArray(0);
+    glBindVertexArray(VAO);     // bind the VAO we configured before
+    glDrawArrays(GL_TRIANGLES, 0, 6);   // draw the objects
+    glBindVertexArray(0);     // unbind the VAO
 
     
     glfwSwapBuffers(mWindow);   // flip buffers and draw
