@@ -2,7 +2,7 @@
 
 ## Due date: Thurs. 2/16
 
-Like last time, 1 point extra credit will be awarded for completed assignment before Thurs. 2/9
+Like last time, 1 point extra credit will be awarded for completed assignment or pull request fixing error before Thurs. 2/9
 
 Extra credit will also be given for opening and especially answering issues on the original repository.
 
