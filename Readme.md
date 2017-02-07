@@ -32,3 +32,11 @@ Open main.cpp for editing.
 ## Submit
 
 [Same as last time.](https://cisc3620.github.io/docs/submissions.html)
+
+**In addition**, execute the program, save the image that's created (using a screenshot tool), and move the image into the top level of your repository.
+
+Your add command will be 
+
+```git add main.cpp img.png```
+
+I will look at the code you've changed in main and your generated image.
