@@ -29,9 +29,22 @@ const GLchar* fragmentShaderSource =
 "}\0";
 
 GLfloat vertices[] = {
-  -0.5f,  -0.5f,  0.0f,
-  0.5f,  -0.5f,  0.0f,
-  0.0f,   0.5f,  0.0f
+  /*Drawing a House
+  //First Triangle
+  //x     y     z     r     g     b    */
+   0.5f, -0.5f, 0.0f,// 0.2f, 0.5f, 0.8f,
+  -0.5f, -0.5f, 0.0f,// 0.2f, 0.5f, 0.8f,
+  -0.5f,  0.5f, 0.0f,// 0.2f, 0.5f, 0.8f,
+
+  //Second Triangle
+   0.5f, -0.5f, 0.0f,// 0.5f, 0.2f, 0.3f,
+   0.5f,  0.5f, 0.0f,// 0.5f, 0.2f, 0.3f,
+  -0.5f,  0.5f, 0.0f,// 0.5f, 0.2f, 0.3f,
+  
+  //Third Triangle
+   -0.5f, 0.5f, 0.0f,// 0.7f, 0.8f, 0.4f,
+    0.5f, 0.5f, 0.0f,// 0.7f, 0.8f, 0.4f,
+    0.0f, 1.0f, 0.0f,// 0.7f, 0.8f, 0.4f
 };
 
 
@@ -111,7 +124,7 @@ int main(int argc, char * argv[]) {
     // Draw our first triangle
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);     // bind the VAO we configured before
-    glDrawArrays(GL_TRIANGLES, 0, 6);   // draw the objects
+    glDrawArrays(GL_TRIANGLES, 0, 12);   // draw the objects
     glBindVertexArray(0);     // unbind the VAO
 
     
