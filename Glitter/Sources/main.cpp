@@ -134,7 +134,7 @@ int main(int argc, char * argv[]) {
     // Draw our first triangle
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);     // bind the VAO we configured before
-    glDrawArrays(GL_TRIANGLES, 0, 12);   // draw the objects
+    glDrawArrays(GL_TRIANGLES, 0, 9);   // draw the objects
     glBindVertexArray(0);     // unbind the VAO
 
     
