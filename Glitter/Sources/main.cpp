@@ -13,25 +13,44 @@ const GLchar* vertexShaderSource =
 "#version 330 core\n"
 
 "layout (location = 0) in vec3 position;"
+"layout (location = 1) in vec3 color;"
+
+"out vec3 vertexColor;"
 
 "void main() {"
 "gl_Position = vec4(position.x, position.y, position.z, 1.0);"
+"vertexColor = color;"
 "}\0"
 ;
 
 const GLchar* fragmentShaderSource =
 "#version 330 core\n"
 
+"in vec3 vertexColor;"
+
 "out vec4 color;\n"
 
 "void main() {"
-"color = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
+"color = vec4(vertexColor, 1.0f);"
 "}\0";
 
 GLfloat vertices[] = {
-  -0.5f,  -0.5f,  0.0f,
-  0.5f,  -0.5f,  0.0f,
-  0.0f,   0.5f,  0.0f
+  /*Drawing a House
+  //First Triangle
+  //x     y     z     r     g     b    */
+   0.5f, -0.5f, 0.0f, 0.2f, 0.5f, 0.8f,
+  -0.5f, -0.5f, 0.0f, 0.2f, 0.5f, 0.8f,
+  -0.5f,  0.5f, 0.0f, 0.2f, 0.5f, 0.8f,
+
+  //Second Triangle
+   0.5f, -0.5f, 0.0f, 0.5f, 0.2f, 0.3f,
+   0.5f,  0.5f, 0.0f, 0.5f, 0.2f, 0.3f,
+  -0.5f,  0.5f, 0.0f, 0.5f, 0.2f, 0.3f,
+  
+  //Third Triangle
+   -0.5f, 0.5f, 0.0f, 0.7f, 0.8f, 0.4f,
+    0.5f, 0.5f, 0.0f, 0.7f, 0.8f, 0.4f,
+    0.0f, 1.0f, 0.0f, 0.7f, 0.8f, 0.4f
 };
 
 
@@ -72,8 +91,12 @@ int main(int argc, char * argv[]) {
   // this is the first (0th) vertex attribute, has 3 components, is of type GL_FLOAT, should
   // not be normalized, each one is 3 floats apart, start at beginning of buffer (offset is 0)
   // this vertex attribute takes its data from the VBO currently bound to GL_ARRAY_BUFFER
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+  glVertexAttribPointer(0, 3,  GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
   glEnableVertexAttribArray(0);
+
+  //Color attribute
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3* sizeof(GLfloat)));
+  glEnableVertexAttribArray(1);
   
   // unbind GL_ARRAY_BUFFER and vertex array -- state has been applied
   // unbind OpenGL objects when finished configuring them so don't mess them up
@@ -111,7 +134,7 @@ int main(int argc, char * argv[]) {
     // Draw our first triangle
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);     // bind the VAO we configured before
-    glDrawArrays(GL_TRIANGLES, 0, 6);   // draw the objects
+    glDrawArrays(GL_TRIANGLES, 0, 9);   // draw the objects
     glBindVertexArray(0);     // unbind the VAO
 
     
